@@ -1,4 +1,5 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { ApiProperty } from '@nestjs/swagger';
 
 export interface UserCreationAttributes {
   email: string;
@@ -8,6 +9,7 @@ export interface UserCreationAttributes {
 
 @Table({ tableName: 'users' })
 export class User extends Model<User, UserCreationAttributes> {
+  @ApiProperty({ example: 1, description: 'Уникальный идентификатор' })
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -16,6 +18,10 @@ export class User extends Model<User, UserCreationAttributes> {
   })
   id: number;
 
+  @ApiProperty({
+    example: 'user@gmail.com',
+    description: 'Логин пользователя',
+  })
   @Column({
     type: DataType.STRING,
     unique: true,
@@ -23,12 +29,14 @@ export class User extends Model<User, UserCreationAttributes> {
   })
   email: string;
 
+  @ApiProperty({ example: '1234', description: 'Пароль пользователя' })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   password: string;
 
+  @ApiProperty({ example: 'Name', description: 'Имя пользователя' })
   @Column({
     type: DataType.STRING,
     unique: true,
