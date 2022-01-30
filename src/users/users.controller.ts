@@ -10,7 +10,7 @@ export class UsersController {
   constructor(private userService: UsersService) {}
 
   @ApiOperation({ summary: 'Создание пользователя' })
-  @ApiResponse({ status: 200, type: User })
+  @ApiResponse({ status: 201, type: User })
   @Post()
   create(@Body() user: CreateUserDto) {
     return this.userService.create(user);

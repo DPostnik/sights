@@ -1,23 +1,44 @@
 import { Injectable } from '@nestjs/common';
-import { CountryInterface } from './interfaces/country.interface';
+import { CreateCountryDto } from './dto/create-country.dto';
+import { Country } from './contry.model';
+import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class CountryService {
-  private countries: CountryInterface[] = [];
+  constructor(
+    @InjectModel(Country) private countryRepository: typeof Country,
+  ) {}
 
-  create(country: CountryInterface): CountryInterface {
-    this.countries.push(country);
+  async create(dto: CreateCountryDto) {
+    const country = await this.countryRepository.create(dto);
     return country;
   }
 
-  remove(id: string): CountryInterface[] {
-    this.countries = this.countries.filter(
-      (item: CountryInterface) => item.id !== id,
-    );
-    return this.countries;
+  async getAll() {
+    const countries = await this.countryRepository.findAll();
+    return countries;
   }
 
-  getAll(): CountryInterface[] {
-    return this.countries;
+  async getById(id: number) {
+    const country = await this.countryRepository.findOne({ where: { id } });
+    return country;
+  }
+
+  async update(id: number, dto: CreateCountryDto) {
+    const { name } = dto;
+    const country = await this.countryRepository.update(
+      { name },
+      {
+        where: {
+          id,
+        },
+      },
+    );
+    return country;
+  }
+
+  async remove(id: number) {
+    const country = await this.countryRepository.destroy({ where: { id } });
+    return country;
   }
 }

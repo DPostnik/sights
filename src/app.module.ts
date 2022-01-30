@@ -1,8 +1,4 @@
 import { Module } from '@nestjs/common';
-import { CountryController } from './country/country.controller';
-import { CountryService } from './country/country.service';
-import { CityController } from './city/city.controller';
-import { CityService } from './city/city.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { User } from './users/users.model';
@@ -10,6 +6,12 @@ import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
+import { CountryModule } from './country/country.module';
+import { Country } from './country/contry.model';
+import { City } from './city/city.model';
+import { CityModule } from './city/city.module';
+import { RegionModule } from './region/region.module';
+import { Region } from './region/region.model';
 
 @Module({
   imports: [
@@ -23,13 +25,16 @@ import { UserRoles } from './roles/user-roles.model';
       username: process.env.POSTGRES_USER,
       password: String(process.env.POSTGRES_PASSWORD),
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles],
+      models: [User, Role, UserRoles, Country, City, Region],
       autoLoadModels: true,
     }),
     UsersModule,
     RolesModule,
+    CountryModule,
+    CityModule,
+    RegionModule,
   ],
-  controllers: [CountryController, CityController],
-  providers: [CountryService, CityService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
