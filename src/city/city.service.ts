@@ -1,24 +1,44 @@
 import { Injectable } from '@nestjs/common';
-import { CityInterface } from './interfaces/city.interface';
 import { CreateCityDto } from './dto/create-city.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import { City } from './city.model';
 
 @Injectable()
 export class CityService {
-  private cities = [];
+  constructor(@InjectModel(City) private cityRepository: typeof City) {}
 
-  getAllCities = (limit: string) => {
-    return this.cities.slice(0, +limit);
-  };
+  async createCity(dto: CreateCityDto) {
+    const city = await this.cityRepository.create(dto);
+    return city;
+  }
 
-  createCity = (city: CreateCityDto) => {
-    this.cities.push(city);
-  };
+  async getAllCities(limit: string) {
+    const cities = await this.cityRepository.findAll(
+      limit && { limit: +limit },
+    );
+    return cities;
+  }
 
-  getCityById = (id: string) => {
-    return this.cities.find((item: CityInterface) => item.id === id);
-  };
+  async updateCity(id: number, dto: CreateCityDto) {
+    const { name, region_id } = dto;
+    const city = await this.cityRepository.update(
+      { name, region_id },
+      {
+        where: { id },
+      },
+    );
+    return city;
+  }
 
-  removeCity = (id: string) => {
-    this.cities = this.cities.filter((item: CityInterface) => item.id !== id);
-  };
+  async getCityById(id: string) {
+    const city = await this.cityRepository.findByPk(id);
+    return city;
+  }
+
+  async removeCity(id: string) {
+    const city = await this.cityRepository.destroy({
+      where: { id: +id },
+    });
+    return city;
+  }
 }
