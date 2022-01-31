@@ -13,6 +13,7 @@ import { CreateCityDto } from './dto/create-city.dto';
 import { CityService } from './city.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Country } from '../country/contry.model';
+import { City } from './city.model';
 
 @Controller('/city')
 @ApiTags('Города')
@@ -20,7 +21,7 @@ export class CityController {
   constructor(private cityService: CityService) {}
 
   @ApiOperation({ summary: 'Получение списка городов' })
-  @ApiResponse({ status: 200, type: [Country] })
+  @ApiResponse({ status: 200, type: [City] })
   @Get()
   getAllCities(@Query('limit') limit: string) {
     console.log(limit);
@@ -28,7 +29,7 @@ export class CityController {
   }
 
   @ApiOperation({ summary: 'Создание города' })
-  @ApiResponse({ status: 200, type: Country })
+  @ApiResponse({ status: 200, type: City })
   @Post()
   @HttpCode(201)
   createCity(@Body() city: CreateCityDto) {
@@ -36,7 +37,7 @@ export class CityController {
   }
 
   @ApiOperation({ summary: 'Получение города по id' })
-  @ApiResponse({ status: 200, type: Country })
+  @ApiResponse({ status: 200, type: City })
   @Get(':id')
   getEntityById(@Param('id') id: string) {
     return this.cityService.getCityById(id);
