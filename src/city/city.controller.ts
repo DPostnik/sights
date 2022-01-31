@@ -12,7 +12,6 @@ import {
 import { CreateCityDto } from './dto/create-city.dto';
 import { CityService } from './city.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Country } from '../country/contry.model';
 import { City } from './city.model';
 
 @Controller('/city')
