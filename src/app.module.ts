@@ -14,6 +14,8 @@ import { RegionModule } from './region/region.module';
 import { Region } from './region/region.model';
 import { CategoryModule } from './category/category.module';
 import { Category } from './category/category.model';
+import { ViewModule } from './view/view.module';
+import { View } from './view/view.model';
 
 @Module({
   imports: [
@@ -27,7 +29,7 @@ import { Category } from './category/category.model';
       username: process.env.POSTGRES_USER,
       password: String(process.env.POSTGRES_PASSWORD),
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, Country, City, Region, Category],
+      models: [User, Role, UserRoles, Country, City, Region, Category, View],
       autoLoadModels: true,
     }),
     UsersModule,
@@ -36,6 +38,7 @@ import { Category } from './category/category.model';
     CityModule,
     RegionModule,
     CategoryModule,
+    ViewModule,
   ],
   controllers: [],
   providers: [],
