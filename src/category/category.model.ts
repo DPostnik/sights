@@ -14,7 +14,7 @@ export interface CategoryCreationAttributes {
 @Table({ tableName: 'category' })
 export class Category extends Model<Category, CategoryCreationAttributes> {
   @ApiProperty({
-    example: 'Архитектура',
+    example: '1',
     description: 'Уникальный идентификатор',
   })
   @Column({
@@ -25,7 +25,7 @@ export class Category extends Model<Category, CategoryCreationAttributes> {
   })
   id: number;
 
-  @ApiProperty({ example: '1', description: 'Название категории' })
+  @ApiProperty({ example: 'Архитектура', description: 'Название категории' })
   @Column({
     type: DataType.STRING,
     unique: true,

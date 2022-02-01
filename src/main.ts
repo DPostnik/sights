@@ -12,7 +12,6 @@ async function bootstrap() {
     .setTitle('Sights of Belarus')
     .setDescription('Implementation')
     .setVersion('1.0.0')
-    .addTag('sights')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/docs', app, document);

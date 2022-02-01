@@ -16,6 +16,10 @@ import { CategoryModule } from './category/category.module';
 import { Category } from './category/category.model';
 import { ViewModule } from './view/view.module';
 import { View } from './view/view.model';
+import { SignificanceDegreeModule } from './significance-degree/significance-degree.module';
+import { SignificanceDegree } from './significance-degree/significance-degree.model';
+import { AccessRightModule } from './access-right/access-right.module';
+import { AccessRight } from './access-right/access-right.model';
 
 @Module({
   imports: [
@@ -29,7 +33,18 @@ import { View } from './view/view.model';
       username: process.env.POSTGRES_USER,
       password: String(process.env.POSTGRES_PASSWORD),
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, Country, City, Region, Category, View],
+      models: [
+        User,
+        Role,
+        UserRoles,
+        Country,
+        City,
+        Region,
+        Category,
+        View,
+        SignificanceDegree,
+        AccessRight,
+      ],
       autoLoadModels: true,
     }),
     UsersModule,
@@ -39,6 +54,8 @@ import { View } from './view/view.model';
     RegionModule,
     CategoryModule,
     ViewModule,
+    SignificanceDegreeModule,
+    AccessRightModule,
   ],
   controllers: [],
   providers: [],
