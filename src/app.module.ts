@@ -20,6 +20,7 @@ import { SignificanceDegreeModule } from './significance-degree/significance-deg
 import { SignificanceDegree } from './significance-degree/significance-degree.model';
 import { AccessRightModule } from './access-right/access-right.module';
 import { AccessRight } from './access-right/access-right.model';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { AccessRight } from './access-right/access-right.model';
     ViewModule,
     SignificanceDegreeModule,
     AccessRightModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
