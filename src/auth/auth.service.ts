@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -19,6 +14,11 @@ export class AuthService {
 
   async login(userDto: CreateUserDto) {
     const user = await this.validateUser(userDto);
+    if (!user) {
+      return {
+        message: 'Пользователь с такими данными не существует',
+      };
+    }
     return this.generateToken(user);
   }
 
@@ -47,6 +47,9 @@ export class AuthService {
 
   private async validateUser(userDto: CreateUserDto) {
     const user = await this.userService.getUsersByEmail(userDto.email);
+    if (!user) {
+      return null;
+    }
     const passwordEquals = await bcryptjs.compare(
       userDto.password,
       user.password,
@@ -54,19 +57,33 @@ export class AuthService {
     if (user && passwordEquals) {
       return user;
     }
-    throw new UnauthorizedException({
-      message: 'Некорректный логин или пароль',
-    });
+    //TODO password invalid
   }
 
-  googleLogin(req) {
-    if (!req.user) {
+  private async isUserExist(email: string) {
+    const user = await this.userService.getUsersByEmail(email);
+    return !!user;
+  }
+
+  async googleLogin(req) {
+    const { user } = req;
+    if (!user) {
       return 'No user from google';
     }
 
+    const { email, first, last } = user;
+    const name = `${first} ${last}`;
+
+    const exist = await this.isUserExist(email.toLowerCase());
+    if (exist) {
+      return this.jwtService.sign({
+        email,
+        name,
+      });
+    }
     return {
-      message: 'User information from google',
-      user: req.user,
+      email,
+      name,
     };
   }
 }

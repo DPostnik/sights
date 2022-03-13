@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, UseGuards, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -27,7 +35,13 @@ export class AuthController {
 
   @Get('redirect')
   @UseGuards(AuthGuard('google'))
-  googleAuthRedirect(@Req() req) {
-    return this.authService.googleLogin(req);
+  async googleAuthRedirect(@Req() req, @Res() res) {
+    const data = await this.authService.googleLogin(req);
+    if (typeof data === 'string') {
+      return res.redirect(`${process.env.UI_URL}home?token=${data}`);
+    }
+    return res.redirect(
+      `${process.env.UI_URL}auth/register?email=${data.email}&name=${data.name}`,
+    );
   }
 }
