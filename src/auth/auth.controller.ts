@@ -41,7 +41,7 @@ export class AuthController {
       return res.redirect(`${process.env.UI_URL}home?token=${data}`);
     }
     return res.redirect(
-      `${process.env.UI_URL}auth/register?email=${data.email}&name=${data.name}`,
+      `${process.env.UI_URL}auth/register?gmail=${data.gmail}&name=${data.name}`,
     );
   }
 }
