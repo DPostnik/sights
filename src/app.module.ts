@@ -23,6 +23,8 @@ import { AccessRight } from './access-right/access-right.model';
 import { AuthModule } from './auth/auth.module';
 import { Coordinates } from './coordinates/coordinates.model';
 import { CoordinatesModule } from './coordinates/coordinates.module';
+import { SightModule } from './sight/sight.module';
+import { Sight } from './sight/sight.model';
 
 @Module({
   imports: [
@@ -48,6 +50,7 @@ import { CoordinatesModule } from './coordinates/coordinates.module';
         SignificanceDegree,
         AccessRight,
         Coordinates,
+        Sight,
       ],
       autoLoadModels: true,
     }),
@@ -62,6 +65,7 @@ import { CoordinatesModule } from './coordinates/coordinates.module';
     AccessRightModule,
     AuthModule,
     CoordinatesModule,
+    SightModule,
   ],
   controllers: [],
   providers: [],
