@@ -10,8 +10,9 @@ import { Role } from '../roles/roles.model';
 import { UserRoles } from '../roles/user-roles.model';
 
 export interface UserCreationAttributes {
-  email: string;
-  password: string;
+  email?: string;
+  gmail?: string;
+  password?: string;
   name: string;
 }
 
@@ -33,14 +34,25 @@ export class User extends Model<User, UserCreationAttributes> {
   @Column({
     type: DataType.STRING,
     unique: true,
-    allowNull: false,
+    allowNull: true,
   })
   email: string;
+
+  @ApiProperty({
+    example: 'user@gmail.com',
+    description: 'Логин пользователя',
+  })
+  @Column({
+    type: DataType.STRING,
+    unique: true,
+    allowNull: true,
+  })
+  gmail: string;
 
   @ApiProperty({ example: '1234', description: 'Пароль пользователя' })
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   password: string;
 

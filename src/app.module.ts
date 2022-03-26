@@ -21,6 +21,8 @@ import { SignificanceDegree } from './significance-degree/significance-degree.mo
 import { AccessRightModule } from './access-right/access-right.module';
 import { AccessRight } from './access-right/access-right.model';
 import { AuthModule } from './auth/auth.module';
+import { Coordinates } from './coordinates/coordinates.model';
+import { CoordinatesModule } from './coordinates/coordinates.module';
 
 @Module({
   imports: [
@@ -45,6 +47,7 @@ import { AuthModule } from './auth/auth.module';
         View,
         SignificanceDegree,
         AccessRight,
+        Coordinates,
       ],
       autoLoadModels: true,
     }),
@@ -58,6 +61,7 @@ import { AuthModule } from './auth/auth.module';
     SignificanceDegreeModule,
     AccessRightModule,
     AuthModule,
+    CoordinatesModule,
   ],
   controllers: [],
   providers: [],
