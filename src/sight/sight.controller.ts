@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { SightService } from './sight.service';
 import { CreateSightDto } from './dto/create-sight.dto';
@@ -15,27 +16,27 @@ export class SightController {
   constructor(private sightService: SightService) {}
 
   @Post()
-  createCountry(@Body() sight: CreateSightDto) {
+  createSight(@Body() sight: CreateSightDto) {
     return this.sightService.create(sight);
   }
 
   @Get()
-  getAllCountries() {
-    return this.sightService.getAll();
+  getAllSights(@Query('limit') limit: number, @Query('offset') offset: number) {
+    return this.sightService.getAll(limit, offset);
   }
 
   @Get(':id')
-  getCountryById(@Param('id') id: string) {
+  getSightById(@Param('id') id: string) {
     return this.sightService.getById(+id);
   }
 
   @Put(':id')
-  updateCountry(@Param('id') id: string, @Body() sight: CreateSightDto) {
+  updateSight(@Param('id') id: string, @Body() sight: CreateSightDto) {
     return this.sightService.update(+id, sight);
   }
 
   @Delete(':id')
-  removeCountry(@Param('id') id: string) {
+  removeSight(@Param('id') id: string) {
     return this.sightService.remove(+id);
   }
 }

@@ -5,7 +5,7 @@ export interface SignificanceDegreeCreationAttributes {
   name: string;
 }
 
-@Table({ tableName: 'significanceDegree' })
+@Table({ timestamps: false, tableName: 'significanceDegree' })
 export class SignificanceDegree extends Model<
   SignificanceDegree,
   SignificanceDegreeCreationAttributes

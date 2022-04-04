@@ -4,7 +4,7 @@ export interface CoordinatesCreationAttributes {
   name: string;
 }
 
-@Table({ tableName: 'coordinates' })
+@Table({ timestamps: false, tableName: 'coordinates' })
 export class Coordinates extends Model<
   Coordinates,
   CoordinatesCreationAttributes

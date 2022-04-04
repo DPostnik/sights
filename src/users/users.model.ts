@@ -16,7 +16,7 @@ export interface UserCreationAttributes {
   name: string;
 }
 
-@Table({ tableName: 'users' })
+@Table({ timestamps: false, tableName: 'users' })
 export class User extends Model<User, UserCreationAttributes> {
   @ApiProperty({ example: 1, description: 'Уникальный идентификатор' })
   @Column({

@@ -5,7 +5,7 @@ export interface CountryCreationAttributes {
   name: string;
 }
 
-@Table({ tableName: 'country' })
+@Table({ timestamps: false, tableName: 'country' })
 export class Country extends Model<Country, CountryCreationAttributes> {
   @ApiProperty({ example: 1, description: 'Уникальный идентефикатор' })
   @Column({

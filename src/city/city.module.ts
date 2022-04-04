@@ -6,7 +6,7 @@ import { City } from './city.model';
 
 @Module({
   imports: [SequelizeModule.forFeature([City])],
-  exports: [],
+  exports: [CityService],
   providers: [CityService],
   controllers: [CityController],
 })

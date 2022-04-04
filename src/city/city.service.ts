@@ -35,6 +35,10 @@ export class CityService {
     return city;
   }
 
+  async getCityByName(name: string) {
+    return await this.cityRepository.findOne({ where: { name } });
+  }
+
   async removeCity(id: string) {
     const city = await this.cityRepository.destroy({
       where: { id: +id },

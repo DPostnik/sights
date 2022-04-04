@@ -13,7 +13,7 @@ export interface CityCreationAttributes {
   region_id: number;
 }
 
-@Table({ tableName: 'city' })
+@Table({ timestamps: false, tableName: 'city' })
 export class City extends Model<City, CityCreationAttributes> {
   @ApiProperty({ example: 1, description: 'Уникальный идентификатор' })
   @Column({

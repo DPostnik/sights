@@ -5,7 +5,7 @@ export interface ViewCreationAttributes {
   name: string;
 }
 
-@Table({ tableName: 'view' })
+@Table({ timestamps: false, tableName: 'view' })
 export class View extends Model<View, ViewCreationAttributes> {
   @ApiProperty({ example: 1, description: 'Уникальный идентификатор' })
   @Column({

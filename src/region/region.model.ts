@@ -14,7 +14,7 @@ export interface RegionCreateAttribute {
   name: string;
 }
 
-@Table({ tableName: 'region' })
+@Table({ timestamps: false, tableName: 'region' })
 export class Region extends Model<Region, RegionCreateAttribute> {
   @ApiProperty({ example: 1, description: 'Уникальный идентификатор' })
   @Column({

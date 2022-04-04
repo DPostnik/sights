@@ -7,17 +7,19 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Coordinates } from '../coordinates/coordinates.model';
+import { City } from '../city/city.model';
 
 export interface SightCreationAttributes {
   name: string;
   description: string;
   date: Date;
   founder: string;
-  // city: number;
+  city: string;
   coordinatesId: number;
+  cityId: number;
 }
 
-@Table({ tableName: 'sight' })
+@Table({ timestamps: false, tableName: 'sight' })
 export class Sight extends Model<Sight, SightCreationAttributes> {
   @Column({
     type: DataType.INTEGER,
@@ -56,15 +58,17 @@ export class Sight extends Model<Sight, SightCreationAttributes> {
   @Column({
     type: DataType.INTEGER,
   })
-  coordinatesId: Coordinates;
+  coordinatesId: number;
 
   @BelongsTo(() => Coordinates)
   coordinates: Coordinates;
 
-  // @HasOne(() => City, 'cityId')
-  // @Column({
-  //   type: DataType.INTEGER,
-  //   allowNull: true,
-  // })
-  // city: City;
+  @ForeignKey(() => City)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  cityId: number;
+
+  @BelongsTo(() => City)
+  city: City;
 }

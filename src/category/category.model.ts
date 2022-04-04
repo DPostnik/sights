@@ -11,7 +11,7 @@ export interface CategoryCreationAttributes {
   name: string;
 }
 
-@Table({ tableName: 'category' })
+@Table({ timestamps: false, tableName: 'category' })
 export class Category extends Model<Category, CategoryCreationAttributes> {
   @ApiProperty({
     example: '1',

@@ -6,7 +6,7 @@ export interface AccessRightCreationAttributes {
   description: string;
 }
 
-@Table({ tableName: 'accessRight' })
+@Table({ timestamps: false, tableName: 'accessRight' })
 export class AccessRight extends Model<
   AccessRight,
   AccessRightCreationAttributes
