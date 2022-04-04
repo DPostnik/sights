@@ -21,7 +21,11 @@ export class SightService {
   }
 
   async getAll() {
-    return await this.sightRepository.findAll();
+    const data = await this.sightRepository.findAll({ include: { all: true } });
+    return data.map((item) => {
+      const { date, name, id, coordinates, description, founder } = item;
+      return { date, name, id, coordinates, description, founder };
+    });
   }
 
   async getById(id: number) {

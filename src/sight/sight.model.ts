@@ -1,4 +1,5 @@
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -6,14 +7,13 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Coordinates } from '../coordinates/coordinates.model';
-import { City } from '../city/city.model';
 
 export interface SightCreationAttributes {
   name: string;
   description: string;
   date: Date;
   founder: string;
-  cityId: number;
+  // city: number;
   coordinatesId: number;
 }
 
@@ -55,14 +55,16 @@ export class Sight extends Model<Sight, SightCreationAttributes> {
   @ForeignKey(() => Coordinates)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
   })
-  coordinatesId: number;
+  coordinatesId: Coordinates;
 
-  @ForeignKey(() => City)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: true,
-  })
-  cityId: number;
+  @BelongsTo(() => Coordinates)
+  coordinates: Coordinates;
+
+  // @HasOne(() => City, 'cityId')
+  // @Column({
+  //   type: DataType.INTEGER,
+  //   allowNull: true,
+  // })
+  // city: City;
 }
