@@ -1,4 +1,5 @@
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -38,4 +39,7 @@ export class City extends Model<City, CityCreationAttributes> {
     type: DataType.INTEGER,
   })
   region_id: number;
+
+  @BelongsTo(() => Region)
+  region: Region;
 }
