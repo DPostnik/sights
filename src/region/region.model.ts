@@ -1,4 +1,5 @@
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -9,9 +10,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Country } from '../country/contry.model';
 
 export interface RegionCreateAttribute {
-  email: string;
-  password: string;
   name: string;
+  country_id: number;
 }
 
 @Table({ timestamps: false, tableName: 'region' })
@@ -42,4 +42,7 @@ export class Region extends Model<Region, RegionCreateAttribute> {
     type: DataType.INTEGER,
   })
   country_id: number;
+
+  @BelongsTo(() => Country)
+  country: Country;
 }

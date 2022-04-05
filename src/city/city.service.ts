@@ -2,27 +2,36 @@ import { Injectable } from '@nestjs/common';
 import { CreateCityDto } from './dto/create-city.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { City } from './city.model';
+import { RegionService } from '../region/region.service';
 
 @Injectable()
 export class CityService {
-  constructor(@InjectModel(City) private cityRepository: typeof City) {}
+  constructor(
+    @InjectModel(City) private cityRepository: typeof City,
+    private regionService: RegionService,
+  ) {}
 
   async createCity(dto: CreateCityDto) {
-    const city = await this.cityRepository.create(dto);
-    return city;
+    const { region: name } = dto;
+    const region = await this.regionService.findByName(name);
+    return await this.cityRepository.create({
+      ...dto,
+      region_id: region.id,
+    });
   }
 
-  async getAllCities(limit: string) {
-    const cities = await this.cityRepository.findAll(
-      limit && { limit: +limit },
-    );
+  async getAllCities(limit: number) {
+    const cities = await this.cityRepository.findAll({
+      include: { all: true },
+      limit: limit || 100,
+    });
     return cities;
   }
 
   async updateCity(id: number, dto: CreateCityDto) {
-    const { name, region_id } = dto;
+    const { name } = dto;
     const city = await this.cityRepository.update(
-      { name, region_id },
+      { name },
       {
         where: { id },
       },
@@ -35,7 +44,7 @@ export class CityService {
     return city;
   }
 
-  async getCityByName(name: string) {
+  async findCityByName(name: string) {
     return await this.cityRepository.findOne({ where: { name } });
   }
 

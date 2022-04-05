@@ -22,7 +22,7 @@ export class CityController {
   @ApiOperation({ summary: 'Получение списка городов' })
   @ApiResponse({ status: 200, type: [City] })
   @Get()
-  getAllCities(@Query('limit') limit: string) {
+  getAllCities(@Query('limit') limit: number) {
     console.log(limit);
     return this.cityService.getAllCities(limit);
   }

@@ -5,7 +5,7 @@ import { CountryController } from './country.controller';
 import { CountryService } from './country.service';
 
 @Module({
-  exports: [],
+  exports: [CountryService],
   imports: [SequelizeModule.forFeature([Country])],
   controllers: [CountryController],
   providers: [CountryService],

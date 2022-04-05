@@ -14,11 +14,11 @@ export class SightService {
   ) {}
 
   async create(dto: CreateSightDto) {
-    const { coordinates, city, name } = dto;
+    const { coordinates: coordinate, city: cityName, name } = dto;
     const coordinatesEntity = await this.coordinatesRepository.create(
-      coordinates,
+      coordinate,
     );
-    const cityEntity = await this.cityRepository.getCityByName(city);
+    const cityEntity = await this.cityRepository.findCityByName(cityName);
     return await this.sightRepository.create({
       name,
       coordinatesId: coordinatesEntity.id,

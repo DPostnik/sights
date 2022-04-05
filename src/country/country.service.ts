@@ -20,8 +20,12 @@ export class CountryService {
   }
 
   async getById(id: number) {
-    const country = await this.countryRepository.findOne({ where: { id } });
+    const country = await this.countryRepository.findByPk(id);
     return country;
+  }
+
+  async findCountryByName(name: string) {
+    return await this.countryRepository.findOne({ where: { name } });
   }
 
   async update(id: number, dto: CreateCountryDto) {
