@@ -1,4 +1,5 @@
 import {
+  BelongsToMany,
   Column,
   DataType,
   ForeignKey,
@@ -6,6 +7,8 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
+import { Sight } from '../sight/sight.model';
+import { CategorySight } from './category-sight.model';
 
 export interface CategoryCreationAttributes {
   name: string;
@@ -40,4 +43,7 @@ export class Category extends Model<Category, CategoryCreationAttributes> {
     allowNull: true,
   })
   category_id: number;
+
+  @BelongsToMany(() => Sight, () => CategorySight)
+  sights: Sight[];
 }

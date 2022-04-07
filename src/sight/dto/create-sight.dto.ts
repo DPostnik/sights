@@ -4,4 +4,5 @@ export class CreateSightDto {
   readonly name: string;
   readonly city: string;
   readonly coordinates: Coordinates;
+  readonly categories?: string[];
 }
