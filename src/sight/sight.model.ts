@@ -1,5 +1,6 @@
 import {
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   ForeignKey,
@@ -8,6 +9,8 @@ import {
 } from 'sequelize-typescript';
 import { Coordinates } from '../coordinates/coordinates.model';
 import { City } from '../city/city.model';
+import { Category } from '../category/category.model';
+import { CategorySight } from '../category/category-sight.model';
 
 export interface SightCreationAttributes {
   name: string;
@@ -71,4 +74,7 @@ export class Sight extends Model<Sight, SightCreationAttributes> {
 
   @BelongsTo(() => City)
   city: City;
+
+  @BelongsToMany(() => Category, () => CategorySight)
+  categories: Category[];
 }

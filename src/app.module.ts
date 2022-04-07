@@ -6,6 +6,10 @@ import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
+import { AccessRight } from './access-right/access-right.model';
+import { AuthModule } from './auth/auth.module';
+import { Coordinates } from './coordinates/coordinates.model';
+import { CoordinatesModule } from './coordinates/coordinates.module';
 import { CountryModule } from './country/country.module';
 import { Country } from './country/contry.model';
 import { City } from './city/city.model';
@@ -19,12 +23,9 @@ import { View } from './view/view.model';
 import { SignificanceDegreeModule } from './significance-degree/significance-degree.module';
 import { SignificanceDegree } from './significance-degree/significance-degree.model';
 import { AccessRightModule } from './access-right/access-right.module';
-import { AccessRight } from './access-right/access-right.model';
-import { AuthModule } from './auth/auth.module';
-import { Coordinates } from './coordinates/coordinates.model';
-import { CoordinatesModule } from './coordinates/coordinates.module';
 import { SightModule } from './sight/sight.module';
 import { Sight } from './sight/sight.model';
+import { CategorySight } from './category/category-sight.model';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { Sight } from './sight/sight.model';
         AccessRight,
         Coordinates,
         Sight,
+        CategorySight,
       ],
       autoLoadModels: true,
     }),

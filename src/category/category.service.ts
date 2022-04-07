@@ -30,6 +30,18 @@ export class CategoryService {
     return category;
   }
 
+  async findCategoryByValue(value: string) {
+    return await this.categoryRepository.findOne({ where: { name: value } });
+  }
+
+  async findCategoriesByValues(values: string[]) {
+    return await Promise.all(
+      values.map(async (item) => {
+        return await this.findCategoryByValue(item);
+      }),
+    );
+  }
+
   async update(id: number, dto: CreateCategoryDto) {
     const { name, category_id } = dto;
     const category = await this.categoryRepository.update(
