@@ -41,28 +41,7 @@ export class SightService {
     });
     return {
       total: data.count,
-      data: data.rows.map((item) => {
-        const {
-          date,
-          name,
-          id,
-          coordinates,
-          description,
-          founder,
-          city,
-          categories,
-        } = item;
-        return {
-          date,
-          name,
-          id,
-          coordinates,
-          description,
-          founder,
-          city,
-          categories,
-        };
-      }),
+      data: data.rows,
     };
   }
 
