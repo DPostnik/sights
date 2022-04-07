@@ -20,6 +20,7 @@ export interface SightCreationAttributes {
   city: string;
   coordinatesId: number;
   cityId: number;
+  mainImage: string;
 }
 
 @Table({ timestamps: false, tableName: 'sight' })
@@ -56,6 +57,24 @@ export class Sight extends Model<Sight, SightCreationAttributes> {
     allowNull: true,
   })
   founder: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  mainImage: string;
+
+  @Column({
+    type: DataType.ARRAY(DataType.INTEGER),
+    allowNull: true,
+  })
+  images: string[];
+
+  @Column({
+    type: DataType.FLOAT,
+    defaultValue: 0,
+  })
+  rating: number;
 
   @ForeignKey(() => Coordinates)
   @Column({
