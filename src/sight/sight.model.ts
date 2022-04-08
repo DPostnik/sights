@@ -65,7 +65,7 @@ export class Sight extends Model<Sight, SightCreationAttributes> {
   mainImage: string;
 
   @Column({
-    type: DataType.ARRAY(DataType.INTEGER),
+    type: DataType.ARRAY(DataType.STRING),
     allowNull: true,
   })
   images: string[];

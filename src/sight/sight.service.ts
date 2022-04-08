@@ -5,6 +5,10 @@ import { CreateSightDto } from './dto/create-sight.dto';
 import { CoordinatesService } from '../coordinates/coordinates.service';
 import { CityService } from '../city/city.service';
 import { CategoryService } from '../category/category.service';
+import {
+  getShortenedSightInfo,
+  getShortenedSightsInfo,
+} from '../utils/sight.util';
 
 @Injectable()
 export class SightService {
@@ -15,9 +19,9 @@ export class SightService {
     private categoryRepository: CategoryService,
   ) {}
 
-  async create(dto: CreateSightDto) {
+  async create(dto: CreateSightDto): Promise<Sight> {
     const { coordinates: coordinate, city: cityName, name, categories } = dto;
-    const result = await this.categoryRepository.findCategoriesByValues(
+    const categoriesId = await this.categoryRepository.findCategoriesByValues(
       categories,
     );
     const coordinatesEntity = await this.coordinatesRepository.create(
@@ -29,7 +33,7 @@ export class SightService {
       coordinatesId: coordinatesEntity.id,
       cityId: cityEntity.id,
     });
-    await sight.$set('categories', [...result]);
+    await sight.$set('categories', [...categoriesId]);
     return sight;
   }
 
@@ -41,12 +45,15 @@ export class SightService {
     });
     return {
       total: data.count,
-      data: data.rows,
+      data: getShortenedSightsInfo(data.rows),
     };
   }
 
   async getById(id: number) {
-    return await this.sightRepository.findByPk(id);
+    const data = await this.sightRepository.findByPk(id, {
+      include: { all: true },
+    });
+    return getShortenedSightInfo(data);
   }
 
   async update(id: number, dto: CreateSightDto) {
