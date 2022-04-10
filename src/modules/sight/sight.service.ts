@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Sight } from './sight.model';
 import { CreateSightDto } from './dto/create-sight.dto';
@@ -13,6 +13,8 @@ import { City } from '../city/city.model';
 import { Coordinates } from '../coordinates/coordinates.model';
 import { Region } from '../region/region.model';
 import { Category } from '../category/category.model';
+import { catchError, from, map } from 'rxjs';
+import { Country } from '../country/country.model';
 
 @Injectable()
 export class SightService {
@@ -43,7 +45,14 @@ export class SightService {
 
   async getAll(limit: number, offset = 0) {
     const data = await this.sightRepository.findAndCountAll({
-      include: [{ model: City, include: [Region] }, Coordinates, Category],
+      include: [
+        {
+          model: City,
+          include: [{ model: Region, include: [{ model: Country }] }],
+        },
+        Coordinates,
+        Category,
+      ],
       limit,
       offset,
     });
@@ -51,6 +60,35 @@ export class SightService {
       total: data.count,
       data: getShortenedSightsInfo(data.rows),
     };
+  }
+
+  getAllSights(limit: number, offset = 0) {
+    return from(
+      this.sightRepository.findAndCountAll({
+        include: [
+          {
+            model: City,
+            include: [{ model: Region, include: [{ model: Country }] }],
+          },
+          Coordinates,
+          Category,
+        ],
+        limit,
+        offset,
+      }),
+    ).pipe(
+      map((data) => ({
+        total: data.count,
+        data: getShortenedSightsInfo(data.rows),
+      })),
+      catchError((error) => {
+        const { response } = error;
+        throw new HttpException(
+          { message: response.data.message },
+          response.status,
+        );
+      }),
+    );
   }
 
   async getById(id: number) {

@@ -2,9 +2,8 @@ import { City } from '../modules/city/city.model';
 
 export function getShortenedCityInfo(city: City) {
   return {
-    name: city.name,
-    region: {
-      name: city.region.name,
-    },
+    city: city.name,
+    country: city.region.country.name,
+    region: city.region.name,
   };
 }

@@ -22,7 +22,7 @@ export class SightController {
 
   @Get()
   getAllSights(@Query('limit') limit: number, @Query('offset') offset: number) {
-    return this.sightService.getAll(limit, offset);
+    return this.sightService.getAllSights(limit, offset);
   }
 
   @Get(':id')

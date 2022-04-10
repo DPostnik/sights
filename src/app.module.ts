@@ -11,7 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { Coordinates } from './modules/coordinates/coordinates.model';
 import { CoordinatesModule } from './modules/coordinates/coordinates.module';
 import { CountryModule } from './modules/country/country.module';
-import { Country } from './modules/country/contry.model';
+import { Country } from './modules/country/country.model';
 import { City } from './modules/city/city.model';
 import { CityModule } from './modules/city/city.module';
 import { RegionModule } from './modules/region/region.module';

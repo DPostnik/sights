@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCountryDto } from './dto/create-country.dto';
-import { Country } from './contry.model';
+import { Country } from './country.model';
 import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
