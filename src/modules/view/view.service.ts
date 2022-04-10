@@ -8,35 +8,30 @@ export class ViewService {
   constructor(@InjectModel(View) private viewRepository: typeof View) {}
 
   async create(dto: CreateViewDto) {
-    const view = await this.viewRepository.create(dto);
-    return view;
+    return await this.viewRepository.create(dto);
   }
 
   async getAll(limit: string) {
-    const views = await this.viewRepository.findAll(limit && { limit: +limit });
-    return views;
+    return await this.viewRepository.findAll(limit && { limit: +limit });
   }
 
   async update(id: number, dto: CreateViewDto) {
     const { name } = dto;
-    const view = await this.viewRepository.update(
+    return await this.viewRepository.update(
       { name },
       {
         where: { id },
       },
     );
-    return view;
   }
 
   async getById(id: string) {
-    const view = await this.viewRepository.findByPk(id);
-    return view;
+    return await this.viewRepository.findByPk(id);
   }
 
   async remove(id: string) {
-    const view = await this.viewRepository.destroy({
+    return await this.viewRepository.destroy({
       where: { id: +id },
     });
-    return view;
   }
 }

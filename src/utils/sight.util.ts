@@ -1,4 +1,4 @@
-import { Sight } from '../sight/sight.model';
+import { Sight } from '../modules/sight/sight.model';
 import { getShortenedCityInfo } from './city.util';
 import { getShortenedCoordinates } from './coordinates.util';
 import { getShortenedCategories } from './category.util';

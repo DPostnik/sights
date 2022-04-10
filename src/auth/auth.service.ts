@@ -1,10 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { UsersService } from '../users/users.service';
+import { CreateUserDto } from '../modules/users/dto/create-user.dto';
+import { UsersService } from '../modules/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcryptjs from 'bcryptjs';
-import { User } from '../users/users.model';
-import { GmailDataModel, TokenModel, UserAuthDataModel } from '../interfaces';
+import { User } from '../modules/users/users.model';
+import {
+  GmailDataModel,
+  TokenModel,
+  UserAuthDataModel,
+} from '../interfaces/interfaces';
 
 @Injectable()
 export class AuthService {

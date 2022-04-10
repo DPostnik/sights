@@ -10,18 +10,15 @@ export class CountryService {
   ) {}
 
   async create(dto: CreateCountryDto) {
-    const country = await this.countryRepository.create(dto);
-    return country;
+    return await this.countryRepository.create(dto);
   }
 
   async getAll() {
-    const countries = await this.countryRepository.findAll();
-    return countries;
+    return await this.countryRepository.findAll();
   }
 
   async getById(id: number) {
-    const country = await this.countryRepository.findByPk(id);
-    return country;
+    return await this.countryRepository.findByPk(id);
   }
 
   async findCountryByName(name: string) {
@@ -30,7 +27,7 @@ export class CountryService {
 
   async update(id: number, dto: CreateCountryDto) {
     const { name } = dto;
-    const country = await this.countryRepository.update(
+    return await this.countryRepository.update(
       { name },
       {
         where: {
@@ -38,11 +35,9 @@ export class CountryService {
         },
       },
     );
-    return country;
   }
 
   async remove(id: number) {
-    const country = await this.countryRepository.destroy({ where: { id } });
-    return country;
+    return await this.countryRepository.destroy({ where: { id } });
   }
 }

@@ -21,27 +21,24 @@ export class CityService {
   }
 
   async getAllCities(limit: number) {
-    const cities = await this.cityRepository.findAll({
+    return await this.cityRepository.findAll({
       include: { all: true },
       limit: limit || 100,
     });
-    return cities;
   }
 
   async updateCity(id: number, dto: CreateCityDto) {
     const { name } = dto;
-    const city = await this.cityRepository.update(
+    return await this.cityRepository.update(
       { name },
       {
         where: { id },
       },
     );
-    return city;
   }
 
   async getCityById(id: string) {
-    const city = await this.cityRepository.findByPk(id);
-    return city;
+    return await this.cityRepository.findByPk(id);
   }
 
   async findCityByName(name: string) {
@@ -49,9 +46,8 @@ export class CityService {
   }
 
   async removeCity(id: string) {
-    const city = await this.cityRepository.destroy({
+    return await this.cityRepository.destroy({
       where: { id: +id },
     });
-    return city;
   }
 }

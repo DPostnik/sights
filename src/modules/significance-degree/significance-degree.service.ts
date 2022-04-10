@@ -11,31 +11,24 @@ export class SignificanceDegreeService {
   ) {}
 
   async create(dto: CreateSignificanceDegreeDto) {
-    const significanceDegree = await this.significanceDegreeRepository.create(
-      dto,
-    );
-    return significanceDegree;
+    return await this.significanceDegreeRepository.create(dto);
   }
 
   async getAll(limit: number) {
-    const significanceDegrees = await this.significanceDegreeRepository.findAll(
-      limit && { limit },
-    );
-    return significanceDegrees;
+    return await this.significanceDegreeRepository.findAll(limit && { limit });
   }
 
   async getById(id: number) {
-    const significanceDegree = await this.significanceDegreeRepository.findOne({
+    return await this.significanceDegreeRepository.findOne({
       where: {
         id,
       },
     });
-    return significanceDegree;
   }
 
   async update(id: number, dto: CreateSignificanceDegreeDto) {
     const { name } = dto;
-    const significanceDegree = await this.significanceDegreeRepository.update(
+    return await this.significanceDegreeRepository.update(
       {
         name,
       },
@@ -45,15 +38,13 @@ export class SignificanceDegreeService {
         },
       },
     );
-    return significanceDegree;
   }
 
   async remove(id: number) {
-    const significanceDegree = await this.significanceDegreeRepository.destroy({
+    return await this.significanceDegreeRepository.destroy({
       where: {
         id,
       },
     });
-    return significanceDegree;
   }
 }

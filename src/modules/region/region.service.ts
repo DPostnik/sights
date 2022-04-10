@@ -14,23 +14,20 @@ export class RegionService {
   async create(dto: CreateRegionDto) {
     const { country: countryName } = dto;
     const country = await this.countryService.findCountryByName(countryName);
-    const region = await this.regionRepository.create({
+    return await this.regionRepository.create({
       ...dto,
       country_id: country.id,
     });
-    return region;
   }
 
   async getAll() {
-    const regions = await this.regionRepository.findAndCountAll({
+    return await this.regionRepository.findAndCountAll({
       include: { all: true },
     });
-    return regions;
   }
 
   async getById(id: number) {
-    const region = await this.regionRepository.findByPk(id);
-    return region;
+    return await this.regionRepository.findByPk(id);
   }
 
   async findByName(name: string) {
@@ -39,7 +36,7 @@ export class RegionService {
 
   async update(id: number, dto: CreateRegionDto) {
     const { name } = dto;
-    const region = await this.regionRepository.update(
+    return await this.regionRepository.update(
       { name },
       {
         where: {
@@ -47,11 +44,9 @@ export class RegionService {
         },
       },
     );
-    return region;
   }
 
   async remove(id: number) {
-    const region = await this.regionRepository.destroy({ where: { id } });
-    return region;
+    return await this.regionRepository.destroy({ where: { id } });
   }
 }

@@ -10,29 +10,24 @@ export class AccessRightService {
   ) {}
 
   async create(dto: CreateAccessRightDto) {
-    const accessRight = await this.accessRightRepository.create(dto);
-    return accessRight;
+    return await this.accessRightRepository.create(dto);
   }
 
   async getAll(limit: number) {
-    const accessRights = await this.accessRightRepository.findAll(
-      limit && { limit },
-    );
-    return accessRights;
+    return await this.accessRightRepository.findAll(limit && { limit });
   }
 
   async getById(id: number) {
-    const accessRight = await this.accessRightRepository.findOne({
+    return await this.accessRightRepository.findOne({
       where: {
         id,
       },
     });
-    return accessRight;
   }
 
   async update(id: number, dto: CreateAccessRightDto) {
     const { name, description } = dto;
-    const accessRight = await this.accessRightRepository.update(
+    return await this.accessRightRepository.update(
       {
         name,
         description,
@@ -43,15 +38,13 @@ export class AccessRightService {
         },
       },
     );
-    return accessRight;
   }
 
   async remove(id: number) {
-    const accessRight = await this.accessRightRepository.destroy({
+    return await this.accessRightRepository.destroy({
       where: {
         id,
       },
     });
-    return accessRight;
   }
 }
