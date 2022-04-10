@@ -2,7 +2,7 @@
 
 https://www.postgresql.org/ - postgresSql
 <hr>
-Upload posgres, create database with name: sights_of_belarus
+Upload postgres, create database with name: sights_of_belarus
 <hr>
 <h3>npm i</h3>
 <h3>npm run start:dev</h3>
