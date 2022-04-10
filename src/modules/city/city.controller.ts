@@ -7,7 +7,6 @@ import {
   Param,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import { CreateCityDto } from './dto/create-city.dto';
 import { CityService } from './city.service';
@@ -22,9 +21,8 @@ export class CityController {
   @ApiOperation({ summary: 'Получение списка городов' })
   @ApiResponse({ status: 200, type: [City] })
   @Get()
-  getAllCities(@Query('limit') limit: number) {
-    console.log(limit);
-    return this.cityService.getAllCities(limit);
+  getAllCities() {
+    return this.cityService.getAllCities();
   }
 
   @ApiOperation({ summary: 'Создание города' })

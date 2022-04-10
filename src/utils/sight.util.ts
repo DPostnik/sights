@@ -4,9 +4,11 @@ import { getShortenedCoordinates } from './coordinates.util';
 import { getShortenedCategories } from './category.util';
 
 export function getShortenedSightsInfo(sights: Sight[]) {
-  return sights.map((item) => {
-    return getShortenedSightInfo(item);
-  });
+  return (
+    sights?.map((item) => {
+      return getShortenedSightInfo(item);
+    }) || []
+  );
 }
 
 export function getShortenedSightInfo(sight: Sight) {

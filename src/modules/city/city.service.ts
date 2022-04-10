@@ -3,6 +3,7 @@ import { CreateCityDto } from './dto/create-city.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { City } from './city.model';
 import { RegionService } from '../region/region.service';
+import { Region } from '../region/region.model';
 
 @Injectable()
 export class CityService {
@@ -20,10 +21,9 @@ export class CityService {
     });
   }
 
-  async getAllCities(limit: number) {
+  async getAllCities() {
     return await this.cityRepository.findAll({
-      include: { all: true },
-      limit: limit || 100,
+      include: [Region],
     });
   }
 

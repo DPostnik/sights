@@ -23,7 +23,6 @@ export class ViewController {
   @ApiResponse({ status: 200, type: [View] })
   @Get()
   getAllCities(@Query('limit') limit: string) {
-    console.log(limit);
     return this.viewService.getAll(limit);
   }
 
