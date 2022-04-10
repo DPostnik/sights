@@ -5,5 +5,5 @@ export function getShortenedCategory(category: Category): string {
 }
 
 export function getShortenedCategories(categories: Category[]): string[] {
-  return categories.map((item) => item.name);
+  return categories?.map((item) => item.name);
 }

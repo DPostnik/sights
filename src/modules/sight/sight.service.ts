@@ -9,6 +9,10 @@ import {
   getShortenedSightInfo,
   getShortenedSightsInfo,
 } from '../../utils/sight.util';
+import { City } from '../city/city.model';
+import { Coordinates } from '../coordinates/coordinates.model';
+import { Region } from '../region/region.model';
+import { Category } from '../category/category.model';
 
 @Injectable()
 export class SightService {
@@ -39,7 +43,7 @@ export class SightService {
 
   async getAll(limit: number, offset = 0) {
     const data = await this.sightRepository.findAndCountAll({
-      include: { all: true },
+      include: [{ model: City, include: [Region] }, Coordinates, Category],
       limit,
       offset,
     });

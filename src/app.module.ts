@@ -55,6 +55,7 @@ import { CategorySight } from './modules/category/category-sight.model';
         CategorySight,
       ],
       autoLoadModels: true,
+      synchronize: true,
     }),
     UsersModule,
     RolesModule,
