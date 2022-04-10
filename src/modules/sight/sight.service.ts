@@ -8,7 +8,7 @@ import { CategoryService } from '../category/category.service';
 import {
   getShortenedSightInfo,
   getShortenedSightsInfo,
-} from '../utils/sight.util';
+} from '../../utils/sight.util';
 
 @Injectable()
 export class SightService {

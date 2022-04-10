@@ -10,24 +10,19 @@ export class CategoryService {
   ) {}
 
   async create(dto: CreateCategoryDto) {
-    const category = await this.categoryRepository.create(dto);
-    return category;
+    return await this.categoryRepository.create(dto);
   }
 
   async getAll(limit: number) {
-    const categories = await this.categoryRepository.findAll(
-      limit && { limit },
-    );
-    return categories;
+    return await this.categoryRepository.findAll(limit && { limit });
   }
 
   async getById(id: number) {
-    const category = await this.categoryRepository.findOne({
+    return await this.categoryRepository.findOne({
       where: {
         id,
       },
     });
-    return category;
   }
 
   async findCategoryByValue(value: string) {
@@ -44,7 +39,7 @@ export class CategoryService {
 
   async update(id: number, dto: CreateCategoryDto) {
     const { name, category_id } = dto;
-    const category = await this.categoryRepository.update(
+    return await this.categoryRepository.update(
       {
         name,
         category_id,
@@ -55,15 +50,13 @@ export class CategoryService {
         },
       },
     );
-    return category;
   }
 
   async remove(id: number) {
-    const category = await this.categoryRepository.destroy({
+    return await this.categoryRepository.destroy({
       where: {
         id,
       },
     });
-    return category;
   }
 }

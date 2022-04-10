@@ -1,4 +1,4 @@
-import { User } from './users/users.model';
+import { User } from '../modules/users/users.model';
 
 export interface GmailDataModel {
   gmail: string;

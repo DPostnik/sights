@@ -1,4 +1,4 @@
-import { Coordinates } from '../coordinates/coordinates.model';
+import { Coordinates } from '../modules/coordinates/coordinates.model';
 
 export function getShortenedCoordinates(coordinates: Coordinates): {
   latitude;

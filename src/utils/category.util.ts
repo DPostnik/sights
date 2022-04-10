@@ -1,4 +1,4 @@
-import { Category } from '../category/category.model';
+import { Category } from '../modules/category/category.model';
 
 export function getShortenedCategory(category: Category): string {
   return category.name;
