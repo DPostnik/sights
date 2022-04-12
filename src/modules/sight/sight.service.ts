@@ -35,6 +35,7 @@ export class SightService {
     );
     const cityEntity = await this.cityRepository.findCityByName(cityName);
     const sight = await this.sightRepository.create({
+      ...dto,
       name,
       coordinatesId: coordinatesEntity.id,
       cityId: cityEntity.id,
@@ -43,38 +44,29 @@ export class SightService {
     return sight;
   }
 
-  async getAll(limit: number, offset = 0) {
-    const data = await this.sightRepository.findAndCountAll({
-      include: [
-        {
-          model: City,
-          include: [{ model: Region, include: [{ model: Country }] }],
-        },
-        Coordinates,
-        Category,
-      ],
-      limit,
-      offset,
-    });
-    return {
-      total: data.count,
-      data: getShortenedSightsInfo(data.rows),
-    };
-  }
-
   getAllSights(limit: number, offset = 0) {
     return from(
       this.sightRepository.findAndCountAll({
         include: [
           {
             model: City,
-            include: [{ model: Region, include: [{ model: Country }] }],
+            include: [
+              {
+                model: Region,
+                include: [
+                  {
+                    model: Country,
+                  },
+                ],
+              },
+            ],
           },
           Coordinates,
           Category,
         ],
         limit,
         offset,
+        distinct: true,
       }),
     ).pipe(
       map((data) => ({
@@ -93,7 +85,23 @@ export class SightService {
 
   async getById(id: number) {
     const data = await this.sightRepository.findByPk(id, {
-      include: { all: true },
+      include: [
+        {
+          model: City,
+          include: [
+            {
+              model: Region,
+              include: [
+                {
+                  model: Country,
+                },
+              ],
+            },
+          ],
+        },
+        Coordinates,
+        Category,
+      ],
     });
     return getShortenedSightInfo(data);
   }
