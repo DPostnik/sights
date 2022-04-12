@@ -11,6 +11,8 @@ import { Coordinates } from '../coordinates/coordinates.model';
 import { City } from '../city/city.model';
 import { Category } from '../category/category.model';
 import { CategorySight } from '../category/category-sight.model';
+import { User } from '../users/users.model';
+import { UserSights } from '../users/user-sight/user-sight.model';
 
 export interface SightCreationAttributes {
   name: string;
@@ -96,4 +98,7 @@ export class Sight extends Model<Sight, SightCreationAttributes> {
 
   @BelongsToMany(() => Category, () => CategorySight)
   categories: Category[];
+
+  @BelongsToMany(() => User, () => UserSights)
+  user: User[];
 }

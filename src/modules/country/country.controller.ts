@@ -10,7 +10,7 @@ import {
 import { CountryService } from './country.service';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Country } from './contry.model';
+import { Country } from './country.model';
 
 @Controller('country')
 @ApiTags('Страны')

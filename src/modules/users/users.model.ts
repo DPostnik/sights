@@ -8,6 +8,8 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../roles/roles.model';
 import { UserRoles } from '../roles/user-roles.model';
+import { UserSights } from './user-sight/user-sight.model';
+import { Sight } from '../sight/sight.model';
 
 export interface UserCreationAttributes {
   email?: string;
@@ -66,4 +68,7 @@ export class User extends Model<User, UserCreationAttributes> {
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
+
+  @BelongsToMany(() => Sight, () => UserSights)
+  favouriteSights: Sight[];
 }

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Country } from './contry.model';
+import { Country } from './country.model';
 import { CountryController } from './country.controller';
 import { CountryService } from './country.service';
 

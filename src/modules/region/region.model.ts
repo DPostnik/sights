@@ -7,7 +7,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
-import { Country } from '../country/contry.model';
+import { Country } from '../country/country.model';
 
 export interface RegionCreateAttribute {
   name: string;

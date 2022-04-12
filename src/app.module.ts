@@ -11,7 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { Coordinates } from './modules/coordinates/coordinates.model';
 import { CoordinatesModule } from './modules/coordinates/coordinates.module';
 import { CountryModule } from './modules/country/country.module';
-import { Country } from './modules/country/contry.model';
+import { Country } from './modules/country/country.model';
 import { City } from './modules/city/city.model';
 import { CityModule } from './modules/city/city.module';
 import { RegionModule } from './modules/region/region.module';
@@ -26,6 +26,7 @@ import { AccessRightModule } from './modules/access-right/access-right.module';
 import { SightModule } from './modules/sight/sight.module';
 import { Sight } from './modules/sight/sight.model';
 import { CategorySight } from './modules/category/category-sight.model';
+import { UserSights } from './modules/users/user-sight/user-sight.model';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { CategorySight } from './modules/category/category-sight.model';
         Coordinates,
         Sight,
         CategorySight,
+        UserSights,
       ],
       autoLoadModels: true,
       synchronize: true,

@@ -26,7 +26,7 @@ export function getShortenedSightInfo(sight: Sight) {
     id,
   } = sight;
   return {
-    city: getShortenedCityInfo(city),
+    location: getShortenedCityInfo(city),
     coordinates: getShortenedCoordinates(coordinates),
     categories: getShortenedCategories(categories),
     date,
