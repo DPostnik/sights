@@ -21,8 +21,12 @@ export class SightController {
   }
 
   @Get()
-  getAllSights(@Query('limit') limit: number, @Query('offset') offset: number) {
-    return this.sightService.getAllSights(limit, offset);
+  getAllSights(
+    @Query('_limit') limit: number,
+    @Query('_offset') offset: number,
+    @Query('_search') search: string,
+  ) {
+    return this.sightService.getAllSights(limit, offset, search);
   }
 
   @Get(':id')
