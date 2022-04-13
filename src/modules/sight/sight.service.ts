@@ -1,5 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Op } from 'sequelize';
 import { Sight } from './sight.model';
 import { CreateSightDto } from './dto/create-sight.dto';
 import { CoordinatesService } from '../coordinates/coordinates.service';
@@ -44,7 +45,8 @@ export class SightService {
     return sight;
   }
 
-  getAllSights(limit: number, offset = 0) {
+  getAllSights(limit: number, offset = 0, search = '') {
+    const sqlSearch = '%'.concat(search).concat('%');
     return from(
       this.sightRepository.findAndCountAll({
         include: [
@@ -67,6 +69,11 @@ export class SightService {
         limit,
         offset,
         distinct: true,
+        where: {
+          name: {
+            [Op.like]: sqlSearch,
+          },
+        },
       }),
     ).pipe(
       map((data) => ({
