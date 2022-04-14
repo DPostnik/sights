@@ -13,8 +13,8 @@ export class CategoryService {
     return await this.categoryRepository.create(dto);
   }
 
-  async getAll(limit: number) {
-    return await this.categoryRepository.findAll(limit && { limit });
+  async getAll() {
+    return await this.categoryRepository.findAll();
   }
 
   async getById(id: number) {

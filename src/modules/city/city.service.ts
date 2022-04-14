@@ -21,7 +21,7 @@ export class CityService {
     });
   }
 
-  async getAllCities() {
+  async getAll() {
     return await this.cityRepository.findAll({
       include: [Region],
     });

@@ -21,7 +21,7 @@ export class RegionService {
   }
 
   async getAll() {
-    return await this.regionRepository.findAndCountAll({
+    return await this.regionRepository.findAll({
       include: { all: true },
     });
   }

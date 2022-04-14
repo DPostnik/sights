@@ -7,7 +7,6 @@ import {
   Param,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Category } from './category.model';
@@ -22,8 +21,8 @@ export class CategoryController {
   @ApiOperation({ summary: 'Получение списка категорий' })
   @ApiResponse({ status: 200, type: [Category] })
   @Get()
-  getAllCities(@Query('limit') limit?: string) {
-    return this.categoryService.getAll(limit && +limit);
+  getAllCities() {
+    return this.categoryService.getAll();
   }
 
   @ApiOperation({ summary: 'Создание категории' })
