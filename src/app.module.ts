@@ -27,6 +27,7 @@ import { SightModule } from './modules/sight/sight.module';
 import { Sight } from './modules/sight/sight.model';
 import { CategorySight } from './modules/category/category-sight.model';
 import { UserSights } from './modules/users/user-sight/user-sight.model';
+import { MetaModule } from './modules/meta/meta.module';
 
 @Module({
   imports: [
@@ -71,6 +72,7 @@ import { UserSights } from './modules/users/user-sight/user-sight.model';
     AuthModule,
     CoordinatesModule,
     SightModule,
+    MetaModule,
   ],
   controllers: [],
   providers: [],

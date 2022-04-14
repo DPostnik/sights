@@ -22,7 +22,7 @@ export class CityController {
   @ApiResponse({ status: 200, type: [City] })
   @Get()
   getAllCities() {
-    return this.cityService.getAllCities();
+    return this.cityService.getAll();
   }
 
   @ApiOperation({ summary: 'Создание города' })
