@@ -41,12 +41,10 @@ export class MetaService {
           name: item.name,
         }));
         return {
-          meta: {
-            countries: countriesList,
-            regions: regionsList,
-            cities: citiesList,
-            categories: categoriesList,
-          },
+          countries: countriesList,
+          regions: regionsList,
+          cities: citiesList,
+          categories: categoriesList,
         };
       }),
     );
