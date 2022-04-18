@@ -9,13 +9,12 @@ import { CategoryService } from '../category/category.service';
 import {
   getShortenedSightInfo,
   getShortenedSightsInfo,
+  sightIncludeForGetFullResource,
 } from '../../utils/sight.util';
-import { City } from '../city/city.model';
-import { Coordinates } from '../coordinates/coordinates.model';
-import { Region } from '../region/region.model';
-import { Category } from '../category/category.model';
 import { catchError, from, map } from 'rxjs';
-import { Country } from '../country/country.model';
+import { checkCoordinatesEqual } from '../../utils/coordinates.util';
+import { checkCityEqual } from '../../utils/city.util';
+import { checkCategoriesEqual } from '../../utils/category.util';
 
 @Injectable()
 export class SightService {
@@ -28,9 +27,6 @@ export class SightService {
 
   async create(dto: CreateSightDto): Promise<Sight> {
     const { coordinates: coordinate, city: cityName, name, categories } = dto;
-    const categoriesId = await this.categoryRepository.findCategoriesByValues(
-      categories,
-    );
     const coordinatesEntity = await this.coordinatesRepository.create(
       coordinate,
     );
@@ -41,7 +37,7 @@ export class SightService {
       coordinatesId: coordinatesEntity.id,
       cityId: cityEntity.id,
     });
-    await sight.$set('categories', [...categoriesId]);
+    await this.setSightCategory(sight, categories);
     return sight;
   }
 
@@ -49,23 +45,7 @@ export class SightService {
     const sqlSearch = '%'.concat(search).concat('%');
     return from(
       this.sightRepository.findAndCountAll({
-        include: [
-          {
-            model: City,
-            include: [
-              {
-                model: Region,
-                include: [
-                  {
-                    model: Country,
-                  },
-                ],
-              },
-            ],
-          },
-          Coordinates,
-          Category,
-        ],
+        ...sightIncludeForGetFullResource,
         limit,
         offset,
         distinct: true,
@@ -92,37 +72,48 @@ export class SightService {
 
   async getById(id: number) {
     const data = await this.sightRepository.findByPk(id, {
-      include: [
-        {
-          model: City,
-          include: [
-            {
-              model: Region,
-              include: [
-                {
-                  model: Country,
-                },
-              ],
-            },
-          ],
-        },
-        Coordinates,
-        Category,
-      ],
+      ...sightIncludeForGetFullResource,
     });
     return getShortenedSightInfo(data);
   }
 
   async update(id: number, dto: CreateSightDto) {
-    const { name } = dto;
+    const sight = await this.sightRepository.findByPk(id, {
+      ...sightIncludeForGetFullResource,
+    });
+    const { name, description, mainImage, city, categories, coordinates } = dto;
+    if (checkCityEqual(sight.city.name, city)) {
+      const cityEntity = await this.cityRepository.findCityByName(city);
+      await sight.$set('city', cityEntity.id);
+    }
+    if (coordinates) {
+      if (checkCoordinatesEqual(coordinates, sight.coordinates)) {
+        const coordinatesEntity = await this.coordinatesRepository.create(
+          coordinates,
+        );
+        await sight.$set('coordinates', coordinatesEntity.id);
+      }
+    }
+    if (categories) {
+      if (!checkCategoriesEqual(categories, sight.categories)) {
+        await this.setSightCategory(sight, categories);
+      }
+    }
     return await this.sightRepository.update(
-      { name },
+      { name, description, mainImage },
       {
         where: {
           id,
         },
       },
     );
+  }
+
+  private async setSightCategory(sight: Sight, categories) {
+    const categoriesId = await this.categoryRepository.findCategoriesByValues(
+      categories,
+    );
+    await sight.$set('categories', [...categoriesId]);
   }
 
   async remove(id: number) {
