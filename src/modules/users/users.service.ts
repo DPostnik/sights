@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { User } from './users.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateUserDto } from './dto/create-user.dto';
-import { of } from 'rxjs';
+import { from, map, of } from 'rxjs';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class UsersService {
@@ -12,11 +13,34 @@ export class UsersService {
     return await this.userRepository.create(dto);
   }
 
-  async getAllUsers() {
-    return await this.userRepository.findAll();
+  getAllUsers(limit: number, offset = 0, search = '') {
+    const sqlSearch = '%'.concat(search).concat('%');
+    return from(
+      this.userRepository.findAndCountAll({
+        limit,
+        offset,
+        where: {
+          name: {
+            [Op.like]: sqlSearch,
+          },
+        },
+      }),
+    ).pipe(
+      map((res) => ({
+        count: res.count,
+        rows: res.rows.map((item: any) => {
+          const { password, ...user } = item.dataValues;
+          return { ...user };
+        }),
+      })),
+    );
   }
 
-  async getUsersByEmail(email: string) {
+  getUserById(id: number) {
+    return from(this.userRepository.findByPk(id));
+  }
+
+  async getUserByEmail(email: string) {
     return await this.userRepository.findOne({
       where: { email },
       include: { all: true },

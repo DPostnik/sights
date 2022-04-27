@@ -51,7 +51,7 @@ export class AuthService {
   private async validateUser(
     userDto: CreateUserDto,
   ): Promise<UserAuthDataModel> {
-    const user = await this.userService.getUsersByEmail(userDto.email);
+    const user = await this.userService.getUserByEmail(userDto.email);
     if (!user) {
       return {
         message: 'Пользователь с такими данными не существует',
@@ -69,7 +69,7 @@ export class AuthService {
   }
 
   private async isUserExist(email: string): Promise<boolean> {
-    const user = await this.userService.getUsersByEmail(email);
+    const user = await this.userService.getUserByEmail(email);
     return !!user;
   }
 
