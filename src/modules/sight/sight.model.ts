@@ -43,7 +43,7 @@ export class Sight extends Model<Sight, SightCreationAttributes> {
   name: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING(2000),
     allowNull: true,
   })
   description: string;
@@ -61,7 +61,7 @@ export class Sight extends Model<Sight, SightCreationAttributes> {
   founder: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING(2000),
     allowNull: true,
   })
   mainImage: string;

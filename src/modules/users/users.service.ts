@@ -27,8 +27,8 @@ export class UsersService {
       }),
     ).pipe(
       map((res) => ({
-        count: res.count,
-        rows: res.rows.map((item: any) => {
+        total: res.count,
+        data: res.rows.map((item: any) => {
           const { password, ...user } = item.dataValues;
           return { ...user };
         }),
