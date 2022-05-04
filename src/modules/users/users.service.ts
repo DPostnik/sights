@@ -19,6 +19,7 @@ export class UsersService {
       this.userRepository.findAndCountAll({
         limit,
         offset,
+        attributes: { exclude: ['password'] },
         where: {
           name: {
             [Op.like]: sqlSearch,
@@ -28,16 +29,17 @@ export class UsersService {
     ).pipe(
       map((res) => ({
         total: res.count,
-        data: res.rows.map((item: any) => {
-          const { password, ...user } = item.dataValues;
-          return { ...user };
-        }),
+        data: res.rows,
       })),
     );
   }
 
   getUserById(id: number) {
-    return from(this.userRepository.findByPk(id));
+    return from(
+      this.userRepository.findByPk(id, {
+        attributes: { exclude: ['password'] },
+      }),
+    );
   }
 
   async getUserByEmail(email: string) {

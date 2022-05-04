@@ -66,6 +66,12 @@ export class User extends Model<User, UserCreationAttributes> {
   })
   name: string;
 
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  refreshToken?: string;
+
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
 

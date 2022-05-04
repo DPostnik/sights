@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateUserDto } from '../modules/users/dto/create-user.dto';
 import { UsersService } from '../modules/users/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -97,5 +102,31 @@ export class AuthService {
     }
 
     return googleUser;
+  }
+
+  async createAccessTokenFromRefreshToken(refreshToken: string) {
+    try {
+      const decoded = this.jwtService.decode(refreshToken) as any;
+      if (!decoded) {
+        throw new Error();
+      }
+
+      const user = await this.userService.getUserByEmail(decoded.email);
+      if (!user) {
+        throw new HttpException(
+          'User with this id does not exist',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+      const isRefreshTokenMatching = await bcryptjs.compare(
+        refreshToken,
+        user.refreshToken,
+      );
+      if (!isRefreshTokenMatching) {
+        throw new UnauthorizedException('Invalid token');
+      }
+    } catch (e) {
+      throw new UnauthorizedException('Invalid token');
+    }
   }
 }
