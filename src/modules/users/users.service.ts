@@ -58,4 +58,20 @@ export class UsersService {
   async updateUser(id: number, dto: CreateUserDto) {
     return of(this.userRepository.update(dto, { where: { id } }));
   }
+
+  async updateUserRefreshToken(id: number, refreshToken) {
+    return await this.userRepository.update(
+      { refreshToken },
+      { where: { id } },
+    );
+  }
+
+  async clearRefreshToken(userId: number) {
+    await this.userRepository.update(
+      { refreshToken: null },
+      {
+        where: { id: userId, refreshToken: { [Op.not]: null } },
+      },
+    );
+  }
 }

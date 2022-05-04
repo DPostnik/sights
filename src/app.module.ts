@@ -28,6 +28,8 @@ import { Sight } from './modules/sight/sight.model';
 import { CategorySight } from './modules/category/category-sight.model';
 import { UserSights } from './modules/users/user-sight/user-sight.model';
 import { MetaModule } from './modules/meta/meta.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AtGuard } from './common/guards';
 
 @Module({
   imports: [
@@ -75,6 +77,11 @@ import { MetaModule } from './modules/meta/meta.module';
     MetaModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AtGuard,
+    },
+  ],
 })
 export class AppModule {}
