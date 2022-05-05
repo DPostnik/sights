@@ -31,6 +31,7 @@
     "@nestjs/sequelize": "^8.0.0",
     "@nestjs/swagger": "^5.2.0",
     "bcryptjs": "^2.4.3",
+    "class-validator": "^0.13.2",
     "config": "^3.3.7",
     "cross-env": "^7.0.3",
     "fork-ts-checker-webpack-plugin": "^6.5.0",

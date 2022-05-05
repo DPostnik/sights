@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Query,
@@ -22,25 +23,28 @@ export class SightController {
 
   @Get()
   getAllSights(
-    @Query('_limit') limit: number,
-    @Query('_offset') offset: number,
+    @Query('_limit', ParseIntPipe) limit: number,
+    @Query('_offset', ParseIntPipe) offset: number,
     @Query('_search') search: string,
   ) {
     return this.sightService.getAllSights(limit, offset, search);
   }
 
   @Get(':id')
-  getSightById(@Param('id') id: string) {
+  getSightById(@Param('id', ParseIntPipe) id: string) {
     return this.sightService.getById(+id);
   }
 
   @Put(':id')
-  updateSight(@Param('id') id: string, @Body() sight: CreateSightDto) {
+  updateSight(
+    @Param('id', ParseIntPipe) id: string,
+    @Body() sight: CreateSightDto,
+  ) {
     return this.sightService.update(+id, sight);
   }
 
   @Delete(':id')
-  removeSight(@Param('id') id: string) {
+  removeSight(@Param('id', ParseIntPipe) id: string) {
     return this.sightService.remove(+id);
   }
 }
