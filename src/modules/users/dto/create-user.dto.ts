@@ -13,4 +13,6 @@ export class CreateUserDto {
   readonly firstName?: string;
   @ApiProperty({ example: 'Postnik', description: 'Фамилия' })
   readonly lastName?: string;
+  @ApiProperty({ example: 'Postnik', description: 'Фамилия' })
+  readonly refreshToken?: string;
 }

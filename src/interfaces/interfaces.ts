@@ -13,3 +13,13 @@ export interface UserAuthDataModel {
 export interface TokenModel {
   token: string;
 }
+
+export interface Tokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface Credentials {
+  email: string;
+  password: string;
+}
