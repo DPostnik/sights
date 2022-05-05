@@ -26,11 +26,6 @@ import {
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('login')
-  login(@Body() userDto: CreateUserDto) {
-    return this.authService.login(userDto);
-  }
-
   @Public()
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
@@ -63,11 +58,6 @@ export class AuthController {
     return this.authService.refreshTokens(email, refreshToken);
   }
 
-  @Post('registration')
-  registration(@Body() userDto: CreateUserDto) {
-    return this.authService.registration(userDto);
-  }
-
   @Get('login')
   @UseGuards(AuthGuard('google'))
   async googleAuth() {
@@ -85,4 +75,14 @@ export class AuthController {
       `${process.env.UI_URL}auth/register?gmail=${data.gmail}&name=${data.name}`,
     );
   }
+
+  // @Post('registration')
+  // registration(@Body() userDto: CreateUserDto) {
+  //   return this.authService.registration(userDto);
+  // }
+  //
+  // @Post('login')
+  // login(@Body() userDto: CreateUserDto) {
+  //   return this.authService.login(userDto);
+  // }
 }
