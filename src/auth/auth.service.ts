@@ -14,7 +14,7 @@ export class AuthService {
   ) {}
 
   async signUp(dto: CreateUserDto): Promise<Tokens> {
-    const hash = this.hashData(dto.password);
+    const hash = await this.hashData(dto.password);
     const newUser = await this.userService.create({ ...dto, password: hash });
     const tokens = await this.getToken(newUser);
     await this.updateRefreshToken(newUser.id, tokens.refreshToken);
@@ -54,8 +54,8 @@ export class AuthService {
     return tokens;
   }
 
-  hashData(data: string) {
-    return bcryptjs.hash(data, 5);
+  async hashData(data: string) {
+    return await bcryptjs.hash(data, 5);
   }
 
   private async getToken(user: User) {

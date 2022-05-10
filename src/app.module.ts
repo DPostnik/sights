@@ -5,7 +5,6 @@ import { User } from './modules/users/users.model';
 import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { Role } from './modules/roles/roles.model';
-import { UserRoles } from './modules/roles/user-roles.model';
 import { AccessRight } from './modules/access-right/access-right.model';
 import { AuthModule } from './auth/auth.module';
 import { Coordinates } from './modules/coordinates/coordinates.model';
@@ -29,7 +28,7 @@ import { CategorySight } from './modules/category/category-sight.model';
 import { UserSights } from './modules/users/user-sight/user-sight.model';
 import { MetaModule } from './modules/meta/meta.module';
 import { APP_GUARD } from '@nestjs/core';
-import { AtGuard } from './common/guards';
+import { AtGuard } from './auth/common/guards';
 
 @Module({
   imports: [
@@ -46,7 +45,6 @@ import { AtGuard } from './common/guards';
       models: [
         User,
         Role,
-        UserRoles,
         Country,
         City,
         Region,

@@ -4,13 +4,15 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateUserDto } from './dto/create-user.dto';
 import { from, map, of } from 'rxjs';
 import { Op } from 'sequelize';
+import { Role } from '../roles/roles.model';
+import { getShortenedRole } from '../../utils/user.util';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User) private userRepository: typeof User) {}
 
   async create(dto: CreateUserDto) {
-    return await this.userRepository.create(dto);
+    return await this.userRepository.create({ ...dto, roleId: 2 });
   }
 
   getAllUsers(limit: number, offset = 0, search = '') {
@@ -19,17 +21,19 @@ export class UsersService {
       this.userRepository.findAndCountAll({
         limit,
         offset,
-        attributes: { exclude: ['password'] },
+        attributes: { exclude: ['password', 'roleId', 'refreshToken'] },
         where: {
           name: {
             [Op.like]: sqlSearch,
           },
         },
+        distinct: true,
+        include: [Role],
       }),
     ).pipe(
       map((res) => ({
         total: res.count,
-        data: res.rows,
+        data: getShortenedRole(res.rows),
       })),
     );
   }

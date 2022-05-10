@@ -14,22 +14,22 @@ import { CreateUserDto } from '../modules/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Credentials, Tokens } from '../interfaces/interfaces';
-import { AtGuard, RtGuard } from '../common/guards';
+import { AtGuard, RtGuard } from './common/guards';
 import {
   GetCurrentUser,
   GetCurrentUserEmail,
   Public,
-} from '../common/decorators';
+} from './common/decorators';
 
 @ApiTags('Авторизация')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Public()
   @Post('signup')
+  @Public()
   @HttpCode(HttpStatus.CREATED)
-  sighUp(@Body() dto: CreateUserDto): Promise<Tokens> {
+  signUp(@Body() dto: CreateUserDto): Promise<Tokens> {
     return this.authService.signUp(dto);
   }
 
