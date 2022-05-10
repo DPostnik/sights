@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { SightService } from './sight.service';
 import { CreateSightDto } from './dto/create-sight.dto';
+import { Public } from '../../auth/common/decorators';
 
 @Controller('sight')
 export class SightController {
@@ -21,15 +22,17 @@ export class SightController {
     return this.sightService.create(sight);
   }
 
+  @Public()
   @Get()
   getAllSights(
-    @Query('_limit', ParseIntPipe) limit: number,
-    @Query('_offset', ParseIntPipe) offset: number,
+    @Query('_limit') limit: number,
+    @Query('_offset') offset: number,
     @Query('_search') search: string,
   ) {
     return this.sightService.getAllSights(limit, offset, search);
   }
 
+  @Public()
   @Get(':id')
   getSightById(@Param('id', ParseIntPipe) id: string) {
     return this.sightService.getById(+id);

@@ -1,13 +1,14 @@
 import {
+  BelongsTo,
   BelongsToMany,
   Column,
   DataType,
+  ForeignKey,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../roles/roles.model';
-import { UserRoles } from '../roles/user-roles.model';
 import { UserSights } from './user-sight/user-sight.model';
 import { Sight } from '../sight/sight.model';
 
@@ -16,6 +17,7 @@ export interface UserCreationAttributes {
   gmail?: string;
   password?: string;
   name: string;
+  roleId?: number;
 }
 
 @Table({ timestamps: false, tableName: 'users' })
@@ -72,8 +74,11 @@ export class User extends Model<User, UserCreationAttributes> {
   })
   refreshToken?: string;
 
-  @BelongsToMany(() => Role, () => UserRoles)
-  roles: Role[];
+  @ForeignKey(() => Role)
+  roleId: number;
+
+  @BelongsTo(() => Role)
+  role: Role;
 
   @BelongsToMany(() => Sight, () => UserSights)
   favouriteSights: Sight[];
