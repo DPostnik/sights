@@ -5,7 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { from, map, of } from 'rxjs';
 import { Op } from 'sequelize';
 import { Role } from '../roles/roles.model';
-import { getShortenedRole } from '../../utils/user.util';
+import { getShortenedUsersInfo } from '../../utils/user.util';
 
 @Injectable()
 export class UsersService {
@@ -33,7 +33,7 @@ export class UsersService {
     ).pipe(
       map((res) => ({
         total: res.count,
-        data: getShortenedRole(res.rows),
+        data: getShortenedUsersInfo(res.rows),
       })),
     );
   }
@@ -49,7 +49,7 @@ export class UsersService {
   async getUserByEmail(email: string) {
     return await this.userRepository.findOne({
       where: { email },
-      include: { all: true },
+      include: [Role],
     });
   }
 

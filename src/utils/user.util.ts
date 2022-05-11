@@ -1,15 +1,23 @@
 import { User } from '../modules/users/users.model';
 
-export function getShortenedRole(users: User[]) {
-  return users.map((item) => {
-    const role = item?.role?.value;
-    const { email, gmail, name, id } = item;
-    return {
-      email,
-      gmail,
-      name,
-      id,
-      role: role || '',
-    };
+export function getShortenedUsersInfo(users: User[]) {
+  return users.map((user) => {
+    return getShortenedUserInfo(user);
   });
+}
+
+export function getShortenedUserInfo(user: User) {
+  const { email, gmail, name, id } = user;
+  return {
+    email,
+    gmail,
+    name,
+    id,
+    role: getShortenedRole(user),
+  };
+}
+
+export function getShortenedRole(user: User) {
+  const role = user?.role?.value;
+  return role || '';
 }

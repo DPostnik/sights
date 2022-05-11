@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcryptjs from 'bcryptjs';
 import { User } from '../modules/users/users.model';
 import { Credentials, GmailDataModel, Tokens } from '../interfaces/interfaces';
+import { getShortenedUserInfo } from '../utils/user.util';
 
 @Injectable()
 export class AuthService {
@@ -59,7 +60,13 @@ export class AuthService {
   }
 
   private async getToken(user: User) {
-    const payload = { email: user.email, id: user.id, name: user.name };
+    const shortenedUser = getShortenedUserInfo(user);
+    const payload = {
+      email: shortenedUser.email,
+      id: shortenedUser.id,
+      name: shortenedUser.name,
+      role: shortenedUser.role,
+    };
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(payload, {
         expiresIn: 5 * 60,
