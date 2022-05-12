@@ -43,7 +43,7 @@ export class AuthService {
 
   async refreshTokens(email: string, rt: string) {
     const user = await this.userService.getUserByEmail(email);
-    if (!(user || user.refreshToken))
+    if (!(user && user.refreshToken))
       throw new ForbiddenException('Access Denied');
 
     const rtMatches = await bcryptjs.compare(rt, user.refreshToken);
