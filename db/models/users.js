@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       refreshToken: DataTypes.STRING,
       roleId: DataTypes.INTEGER,
+      photoUrl: { type: DataTypes.STRING, allowNull: true },
     },
     {
       sequelize,

@@ -24,6 +24,9 @@ module.exports = {
         type: Sequelize.STRING,
       },
       roleId: Sequelize.INTEGER,
+      photoUrl: {
+        type: Sequelize.STRING,
+      },
     });
   },
   async down(queryInterface) {

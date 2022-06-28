@@ -66,10 +66,11 @@ export class AuthService {
       id: shortenedUser.id,
       name: shortenedUser.name,
       role: shortenedUser.role,
+      photoUrl: shortenedUser.photoUrl,
     };
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(payload, {
-        expiresIn: 5 * 60,
+        expiresIn: 5 * 60 * 60,
         secret: 'at-secret',
       }),
       this.jwtService.signAsync(payload, {

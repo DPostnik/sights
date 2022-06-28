@@ -68,6 +68,14 @@ export class User extends Model<User, UserCreationAttributes> {
   })
   name: string;
 
+  @ApiProperty({ example: 'photoUrl', description: 'photo пользователя' })
+  @Column({
+    type: DataType.STRING,
+    unique: false,
+    allowNull: true,
+  })
+  photoUrl: string;
+
   @Column({
     type: DataType.STRING,
     allowNull: true,

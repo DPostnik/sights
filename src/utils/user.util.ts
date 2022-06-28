@@ -7,12 +7,13 @@ export function getShortenedUsersInfo(users: User[]) {
 }
 
 export function getShortenedUserInfo(user: User) {
-  const { email, gmail, name, id } = user;
+  const { email, gmail, name, id, photoUrl } = user;
   return {
     email,
     gmail,
     name,
     id,
+    photoUrl,
     role: getShortenedRole(user),
   };
 }

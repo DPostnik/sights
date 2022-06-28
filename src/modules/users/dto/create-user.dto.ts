@@ -16,4 +16,5 @@ export class CreateUserDto {
   @ApiProperty({ example: 'Postnik', description: 'Фамилия' })
   readonly refreshToken?: string;
   readonly roleId?: number;
+  readonly photoUrl?: string;
 }
